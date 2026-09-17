@@ -471,11 +471,54 @@
             place-items: center;
             color: var(--blue);
             margin-top: 2px;
+            transition: transform .35s var(--ease);
+        }
+
+        .esp-spec:hover .esp-spec-icon {
+            transform: scale(1.08) rotate(-2deg);
         }
 
         .esp-spec-icon svg {
             width: 16px;
             height: 16px
+        }
+
+        /* Paleta viva por categoria — cada especificação ganha uma cor própria,
+           em vez do azul único, para leitura mais rápida do bloco. */
+        .esp-spec-icon.tone-violet {
+            background: #efe9ff;
+            border-color: #d7c8ff;
+            color: #6a3df0;
+        }
+
+        .esp-spec-icon.tone-sky {
+            background: #dff3ff;
+            border-color: #b9e4ff;
+            color: #0a8fd1;
+        }
+
+        .esp-spec-icon.tone-rose {
+            background: #ffe6ec;
+            border-color: #ffc7d4;
+            color: #e23a63;
+        }
+
+        .esp-spec-icon.tone-amber {
+            background: #fff2d9;
+            border-color: #ffe1a3;
+            color: #c8790a;
+        }
+
+        .esp-spec-icon.tone-emerald {
+            background: #dbf9ec;
+            border-color: #aeeed0;
+            color: #0f9d63;
+        }
+
+        .esp-spec-icon.tone-blue {
+            background: var(--blue-soft);
+            border-color: var(--blue-pale);
+            color: var(--blue);
         }
 
         .esp-spec-text {
@@ -1911,15 +1954,32 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 14px;
-            height: 14px;
+            width: 19px;
+            height: 19px;
             border-radius: 50%;
             background: var(--blue);
             color: #fff;
-            font-size: 8.5px;
-            font-weight: 750;
-            margin-right: 5px;
+            margin-right: 6px;
             flex: none;
+            box-shadow: 0 3px 8px -2px rgba(15, 42, 82, .55);
+        }
+
+        .clyvo3d-explabel .n svg {
+            width: 10.5px;
+            height: 10.5px;
+        }
+
+        /* Paleta viva por peça — mesma linguagem de cor das specs do ESP32,
+           para reconhecer cada componente à primeira vista. */
+        .clyvo3d-explabel .n.tone-emerald { background: #10b981; }
+        .clyvo3d-explabel .n.tone-sky { background: #0ea5e9; }
+        .clyvo3d-explabel .n.tone-violet { background: #7c3aed; }
+        .clyvo3d-explabel .n.tone-amber { background: #f59e0b; }
+        .clyvo3d-explabel .n.tone-orange { background: #fb7a2b; }
+        .clyvo3d-explabel .n.tone-rose { background: #ef4444; }
+
+        .clyvo3d-anchor {
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, .95), 0 2px 10px -2px rgba(15, 42, 82, .5);
         }
 
         .clyvo3d-explabel .t {
@@ -2137,7 +2197,7 @@
 
                         <div class="esp-specs">
                             <div class="esp-spec">
-                                <span class="esp-spec-icon">
+                                <span class="esp-spec-icon tone-violet">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                                         stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="6" y="6" width="12" height="12" rx="1.5" />
@@ -2151,7 +2211,7 @@
                                 </span>
                             </div>
                             <div class="esp-spec">
-                                <span class="esp-spec-icon">
+                                <span class="esp-spec-icon tone-sky">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                                         stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M2 8.5a16 16 0 0 1 20 0" />
@@ -2166,7 +2226,7 @@
                                 </span>
                             </div>
                             <div class="esp-spec">
-                                <span class="esp-spec-icon">
+                                <span class="esp-spec-icon tone-rose">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                                         stroke-linecap="round" stroke-linejoin="round">
                                         <path
@@ -2179,7 +2239,7 @@
                                 </span>
                             </div>
                             <div class="esp-spec">
-                                <span class="esp-spec-icon">
+                                <span class="esp-spec-icon tone-amber">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                                         stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="8" width="16" height="10" rx="2" />
@@ -2193,7 +2253,7 @@
                                 </span>
                             </div>
                             <div class="esp-spec">
-                                <span class="esp-spec-icon">
+                                <span class="esp-spec-icon tone-emerald">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                                         stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M12 2 4 5.5v6c0 4.6 3.2 8.6 8 10.5 4.8-1.9 8-5.9 8-10.5v-6L12 2z" />
@@ -2206,7 +2266,7 @@
                                 </span>
                             </div>
                             <div class="esp-spec">
-                                <span class="esp-spec-icon">
+                                <span class="esp-spec-icon tone-blue">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                                         stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
@@ -2651,7 +2711,7 @@
                 renderer.setClearColor(0x000000, 0);
                 renderer.outputColorSpace = THREE.SRGBColorSpace;
                 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-                renderer.toneMappingExposure = 1.06;
+                renderer.toneMappingExposure = 1.16;
                 renderer.shadowMap.enabled = true;
                 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
                 renderer.physicallyCorrectLights = true;
@@ -2725,19 +2785,32 @@
                     return [c, c.getContext('2d')];
                 }
 
+                function makeGlowTexture(hex) {
+                    const [c, ctx] = createCanvas(256);
+                    const g = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+                    g.addColorStop(0, hex + 'ff');
+                    g.addColorStop(0.35, hex + '99');
+                    g.addColorStop(1, hex + '00');
+                    ctx.fillStyle = g;
+                    ctx.fillRect(0, 0, 256, 256);
+                    const tex = new THREE.CanvasTexture(c);
+                    tex.colorSpace = THREE.SRGBColorSpace;
+                    return tex;
+                }
+
                 function noise(v, spread) {
                     return Math.max(0, Math.min(255, v + (Math.random() * 2 - 1) * spread));
                 }
 
                 function makeBlueRoughnessTexture() {
-                    const [c, ctx] = createCanvas(512);
+                    const [c, ctx] = createCanvas(1024);
                     const g = ctx.createLinearGradient(0, 0, c.width, c.height);
                     g.addColorStop(0, '#8d8d8d');
                     g.addColorStop(0.45, '#666666');
                     g.addColorStop(1, '#8c8c8c');
                     ctx.fillStyle = g;
                     ctx.fillRect(0, 0, c.width, c.height);
-                    for (let i = 0; i < 1600; i++) {
+                    for (let i = 0; i < 3200; i++) {
                         const alpha = 0.015 + Math.random() * 0.05;
                         ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
                         ctx.lineWidth = 0.5 + Math.random() * 1.6;
@@ -2752,7 +2825,7 @@
                 }
 
                 function makeBlueBumpTexture() {
-                    const [c, ctx] = createCanvas(512);
+                    const [c, ctx] = createCanvas(1024);
                     const img = ctx.createImageData(c.width, c.height);
                     const data = img.data;
                     for (let i = 0; i < data.length; i += 4) {
@@ -2782,19 +2855,20 @@
                 ]);
 
                 function drawStitches(ctx, w, h) {
+                    const s = h / 768;
                     [0.135, 0.865].forEach(vy => {
                         const y = vy * h;
                         ctx.save();
                         ctx.strokeStyle = 'rgba(0,0,0,0.68)';
-                        ctx.lineWidth = 8.5;
+                        ctx.lineWidth = 8.5 * s;
                         ctx.beginPath();
-                        ctx.moveTo(0, y + 4);
-                        ctx.lineTo(w, y + 4);
+                        ctx.moveTo(0, y + 4 * s);
+                        ctx.lineTo(w, y + 4 * s);
                         ctx.stroke();
-                        ctx.strokeStyle = 'rgba(240,235,220,1)';
-                        ctx.lineWidth = 5.5;
-                        ctx.setLineDash([16, 16]);
-                        ctx.lineDashOffset = 8;
+                        ctx.strokeStyle = 'rgba(250,248,242,1)';
+                        ctx.lineWidth = 5.5 * s;
+                        ctx.setLineDash([16 * s, 16 * s]);
+                        ctx.lineDashOffset = 8 * s;
                         ctx.beginPath();
                         ctx.moveTo(0, y);
                         ctx.lineTo(w, y);
@@ -2803,23 +2877,23 @@
                     });
                 }
 
-                const [leatherColorCanvas, leatherColorCtx] = createCanvas(768);
-                leatherColorCtx.drawImage(leatherDiffImg, 0, 0, 768, 768);
-                drawStitches(leatherColorCtx, 768, 768);
+                const [leatherColorCanvas, leatherColorCtx] = createCanvas(1024);
+                leatherColorCtx.drawImage(leatherDiffImg, 0, 0, 1024, 1024);
+                drawStitches(leatherColorCtx, 1024, 1024);
                 const leatherColorMap = setTexQuality(new THREE.CanvasTexture(leatherColorCanvas), true);
                 leatherColorMap.wrapS = THREE.MirroredRepeatWrapping;
                 leatherColorMap.wrapT = THREE.ClampToEdgeWrapping;
                 leatherColorMap.repeat.set(9.5, 1);
 
-                const [leatherNorCanvas, leatherNorCtx] = createCanvas(768);
-                leatherNorCtx.drawImage(leatherNorImg, 0, 0, 768, 768);
+                const [leatherNorCanvas, leatherNorCtx] = createCanvas(1024);
+                leatherNorCtx.drawImage(leatherNorImg, 0, 0, 1024, 1024);
                 const leatherNormalMap = setTexQuality(new THREE.CanvasTexture(leatherNorCanvas));
                 leatherNormalMap.wrapS = THREE.MirroredRepeatWrapping;
                 leatherNormalMap.wrapT = THREE.ClampToEdgeWrapping;
                 leatherNormalMap.repeat.copy(leatherColorMap.repeat);
 
-                const [leatherRoughCanvas, leatherRoughCtx] = createCanvas(768);
-                leatherRoughCtx.drawImage(leatherRoughImg, 0, 0, 768, 768);
+                const [leatherRoughCanvas, leatherRoughCtx] = createCanvas(1024);
+                leatherRoughCtx.drawImage(leatherRoughImg, 0, 0, 1024, 1024);
                 const leatherRoughMap = setTexQuality(new THREE.CanvasTexture(leatherRoughCanvas));
                 leatherRoughMap.wrapS = THREE.MirroredRepeatWrapping;
                 leatherRoughMap.wrapT = THREE.ClampToEdgeWrapping;
@@ -2855,7 +2929,7 @@
                 fill.position.set(-8, 4.2, 6.2);
                 scene.add(fill);
 
-                const rim = new THREE.DirectionalLight(0x4fa4ff, 1.65);
+                const rim = new THREE.DirectionalLight(0x5fb4ff, 1.95);
                 rim.position.set(1.2, 2.3, -8.8);
                 scene.add(rim);
 
@@ -2876,28 +2950,28 @@
                     envMapIntensity: 0.55
                 });
                 const blueMaterial = new THREE.MeshPhysicalMaterial({
-                    color: 0x0558e2,
-                    roughness: 0.18,
+                    color: 0x0d63f5,
+                    roughness: 0.14,
                     roughnessMap: blueRoughnessMap,
                     bumpMap: blueBumpMap,
                     bumpScale: 0.006,
-                    metalness: 0.05,
-                    clearcoat: 0.92,
-                    clearcoatRoughness: 0.08,
-                    envMapIntensity: 1.2,
-                    iridescence: 0.08,
+                    metalness: 0.06,
+                    clearcoat: 1,
+                    clearcoatRoughness: 0.045,
+                    envMapIntensity: 1.55,
+                    iridescence: 0.1,
                     iridescenceIOR: 1.3
                 });
                 const blueSideMaterial = new THREE.MeshPhysicalMaterial({
-                    color: 0x033682,
-                    roughness: 0.26,
+                    color: 0x0645b0,
+                    roughness: 0.22,
                     roughnessMap: blueRoughnessMap,
                     bumpMap: blueBumpMap,
                     bumpScale: 0.005,
-                    metalness: 0.05,
-                    clearcoat: 0.78,
-                    clearcoatRoughness: 0.16,
-                    envMapIntensity: 0.95
+                    metalness: 0.06,
+                    clearcoat: 0.86,
+                    clearcoatRoughness: 0.13,
+                    envMapIntensity: 1.15
                 });
                 const darkMaterial = new THREE.MeshPhysicalMaterial({
                     color: 0x0a1017,
@@ -2936,17 +3010,17 @@
                     envMapIntensity: 1.1
                 });
                 const trackMaterial = new THREE.MeshPhysicalMaterial({
-                    color: 0xf4f8fb,
-                    roughness: 0.4,
+                    color: 0xfbfeff,
+                    roughness: 0.32,
                     metalness: 0,
-                    clearcoat: 0.2,
-                    envMapIntensity: 0.5
+                    clearcoat: 0.35,
+                    envMapIntensity: 0.6
                 });
                 const ledMaterial = new THREE.MeshStandardMaterial({
-                    color: 0x39ffaf,
-                    emissive: 0x09ff84,
-                    emissiveIntensity: 2.2,
-                    roughness: 0.16,
+                    color: 0x5dffc2,
+                    emissive: 0x0dff8f,
+                    emissiveIntensity: 3.4,
+                    roughness: 0.14,
                     metalness: 0.03
                 });
                 const redLedMaterial = new THREE.MeshStandardMaterial({
@@ -3042,14 +3116,14 @@
                 const bodyHighlight = new THREE.Mesh(
                     new RoundedBoxGeometry(3.04, 1.18, 0.02, 6, 0.14),
                     new THREE.MeshPhysicalMaterial({
-                        color: 0xb7deff,
+                        color: 0xdcf0ff,
                         transparent: true,
-                        opacity: 0.1,
-                        roughness: 0.12,
+                        opacity: 0.16,
+                        roughness: 0.08,
                         metalness: 0,
                         clearcoat: 1,
-                        clearcoatRoughness: 0.08,
-                        envMapIntensity: 1.8,
+                        clearcoatRoughness: 0.05,
+                        envMapIntensity: 2.1,
                         depthWrite: false
                     })
                 );
@@ -3092,9 +3166,23 @@
                 led.position.set(0.9, 0.24, podZ + 0.452);
                 frontShellGroup.add(led);
 
-                const ledGlow = new THREE.PointLight(0x19ff93, 0.4, 1.4, 2.4);
+                const ledGlow = new THREE.PointLight(0x2dffa0, 0.85, 1.9, 2.1);
                 ledGlow.position.set(0.9, 0.24, podZ + 0.6);
                 frontShellGroup.add(ledGlow);
+
+                /* Halo aditivo sobre o LED — reforça o brilho "vivo" do indicador
+                   sem precisar de um pipeline de post-processing (bloom) completo. */
+                const ledHaloSprite = new THREE.Sprite(new THREE.SpriteMaterial({
+                    map: makeGlowTexture('#39ffb0'),
+                    color: 0x9dffce,
+                    transparent: true,
+                    opacity: 0.85,
+                    blending: THREE.AdditiveBlending,
+                    depthWrite: false
+                }));
+                ledHaloSprite.scale.set(0.62, 0.62, 1);
+                ledHaloSprite.position.set(0.9, 0.24, podZ + 0.47);
+                frontShellGroup.add(ledHaloSprite);
 
                 function makeLogoTexture() {
                     const c = document.createElement('canvas');
@@ -3265,14 +3353,25 @@
                 /* Camadas do módulo, da frente para trás, cada uma com um lado
                    (esquerda/direita) para o rótulo fixo, igual ao diagrama de
                    referência do protótipo. */
+                /* Ícones (mesma linguagem visual do resto do deck) + cor viva por
+                   peça, para a vista explodida ficar tão legível quanto o
+                   diagrama de referência. */
+                const ICON_SHIELD = '<path d="M12 2 4 5.5v6c0 4.6 3.2 8.6 8 10.5 4.8-1.9 8-5.9 8-10.5v-6L12 2z"/><path d="M9 12l2 2 4-4"/>';
+                const ICON_SIGNAL = '<path d="M2 8.5a16 16 0 0 1 20 0"/><path d="M5 12a12 12 0 0 1 14 0"/><path d="M8.5 15.5a7 7 0 0 1 7 0"/><circle cx="12" cy="19" r="1" fill="currentColor"/>';
+                const ICON_PIN = '<path d="M12 21s7-6.7 7-11.5A7 7 0 0 0 5 9.5C5 14.3 12 21 12 21z"/><circle cx="12" cy="9.3" r="2.3"/>';
+                const ICON_CHIP = '<rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/><rect x="10" y="10" width="4" height="4" rx=".5"/>';
+                const ICON_BATTERY = '<rect x="2" y="8" width="16" height="10" rx="2"/><path d="M22 11v4"/><path d="M5 12v2M9 12v2M13 12v2"/>';
+                const ICON_BOLT = '<path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/>';
+                const ICON_PULSE = '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/>';
+
                 const explodeLayers = [
-                    { obj: frontShellGroup, anchor: new THREE.Vector3(-1.0, 0.62, podZ + 0.08), restY: frontShellGroup.position.y, offset: 2.85, num: 1, side: 'left', title: 'Carcaça protetora', text: 'Vedação IP67 — resistente à água, poeira e impactos.' },
-                    { obj: antennaMesh, restY: antennaMesh.position.y, offset: 1.25, num: 2, side: 'right', title: 'Antena GPS', text: 'Recepção de sinais de satélite.' },
-                    { obj: gpsBoardMesh, restY: gpsBoardMesh.position.y, offset: 0.68, num: 3, side: 'left', title: 'Módulo GPS/GNSS', text: 'Localização em tempo real e registro de trajetos.' },
-                    { obj: pcbGroup, restY: pcbGroup.position.y, offset: 0.08, num: 4, side: 'right', title: 'Microcontrolador & PCB', text: 'ESP32, Bluetooth/Wi-Fi, acelerômetro e giroscópio.' },
-                    { obj: batteryMesh, restY: batteryMesh.position.y, offset: -0.5, num: 5, side: 'left', title: 'Bateria Li-Po', text: 'Energia recarregável — até 12 dias de autonomia.' },
-                    { obj: chargeBoardMesh, restY: chargeBoardMesh.position.y, offset: -1.1, num: 6, side: 'right', title: 'Circuito de carregamento', text: 'Carga, proteção e distribuição de energia.' },
-                    { obj: backPlateGroup, anchor: new THREE.Vector3(0, -0.02, podZ - 0.39), restY: backPlateGroup.position.y, offset: -1.7, num: 7, side: 'left', title: 'Sensores & porta de carga', text: 'PPG/SpO₂, temperatura e contatos USB-C magnéticos.' }
+                    { obj: frontShellGroup, anchor: new THREE.Vector3(-1.0, 0.62, podZ + 0.08), restY: frontShellGroup.position.y, offset: 2.85, num: 1, side: 'left', title: 'Carcaça protetora', text: 'Vedação IP67 — resistente à água, poeira e impactos.', tone: 'emerald', color: '#10b981', icon: ICON_SHIELD },
+                    { obj: antennaMesh, restY: antennaMesh.position.y, offset: 1.25, num: 2, side: 'right', title: 'Antena GPS', text: 'Recepção de sinais de satélite.', tone: 'sky', color: '#0ea5e9', icon: ICON_SIGNAL },
+                    { obj: gpsBoardMesh, restY: gpsBoardMesh.position.y, offset: 0.68, num: 3, side: 'left', title: 'Módulo GPS/GNSS', text: 'Localização em tempo real e registro de trajetos.', tone: 'blue', color: '#1a6ebd', icon: ICON_PIN },
+                    { obj: pcbGroup, restY: pcbGroup.position.y, offset: 0.08, num: 4, side: 'right', title: 'Microcontrolador & PCB', text: 'ESP32, Bluetooth/Wi-Fi, acelerômetro e giroscópio.', tone: 'violet', color: '#7c3aed', icon: ICON_CHIP },
+                    { obj: batteryMesh, restY: batteryMesh.position.y, offset: -0.5, num: 5, side: 'left', title: 'Bateria Li-Po', text: 'Energia recarregável — até 12 dias de autonomia.', tone: 'amber', color: '#f59e0b', icon: ICON_BATTERY },
+                    { obj: chargeBoardMesh, restY: chargeBoardMesh.position.y, offset: -1.1, num: 6, side: 'right', title: 'Circuito de carregamento', text: 'Carga, proteção e distribuição de energia.', tone: 'orange', color: '#fb7a2b', icon: ICON_BOLT },
+                    { obj: backPlateGroup, anchor: new THREE.Vector3(0, -0.02, podZ - 0.39), restY: backPlateGroup.position.y, offset: -1.7, num: 7, side: 'left', title: 'Sensores & porta de carga', text: 'PPG/SpO₂, temperatura e contatos USB-C magnéticos.', tone: 'rose', color: '#ef4444', icon: ICON_PULSE }
                 ];
 
                 if (hotspotLayer) {
@@ -3304,16 +3403,18 @@
                     explodeLayers.forEach(hs => {
                         const anchorEl = document.createElement('div');
                         anchorEl.className = 'clyvo3d-anchor';
+                        anchorEl.style.background = hs.color;
                         hotspotLayer.appendChild(anchorEl);
                         hs.anchorEl = anchorEl;
 
                         const line = document.createElementNS(svgNS, 'line');
+                        line.style.stroke = hs.color;
                         svg.appendChild(line);
                         hs.lineEl = line;
 
                         const label = document.createElement('div');
                         label.className = 'clyvo3d-explabel';
-                        label.innerHTML = '<span class="n">' + hs.num + '</span><span class="t">' + hs.title + '<span class="d">' + hs.text + '</span></span>';
+                        label.innerHTML = '<span class="n tone-' + hs.tone + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + hs.icon + '</svg></span><span class="t">' + hs.title + '<span class="d">' + hs.text + '</span></span>';
                         (hs.side === 'left' ? colLeft : colRight).appendChild(label);
                         hs.labelEl = label;
                     });
