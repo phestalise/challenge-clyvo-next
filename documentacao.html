@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clyvo Vet — Documentação Técnica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter+Tight:wght@400;500;600&display=swap"
+  rel="stylesheet">
+<style>
+/* ============ TOKENS (mesmo padrão do restante do projeto) ============ */
+:root {
+  --white: #ffffff;
+  --paper: #f6f9fc;
+  --blue-deep: #1e3a5f;
+  --blue: #1a6ebd;
+  --blue-mid: #2e86de;
+  --blue-light: #4a9eff;
+  --blue-pale: #e2e8f0;
+  --blue-soft: #f0f4f8;
+  --ink: #0a1420;
+  --ink-2: #3a4a5c;
+  --muted: #7a8a9c;
+  --line: #dbe5ef;
+  --good: #1e8a63;
+  --warn: #b8860b;
+  --warn-bg: #fdf6e3;
+  --warn-line: #e0c66b;
+  --ease: cubic-bezier(.25, .7, .3, 1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+html, body { height: 100%; -webkit-text-size-adjust: 100% }
+body {
+  font-family: 'Inter Tight', system-ui, -apple-system, sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+  min-height: 100dvh;
+}
+img, svg { display: block; max-width: 100% }
+a { color: inherit; text-decoration: none }
+h1, h2, h3, h4 {
+  font-family: 'Archivo', sans-serif;
+  letter-spacing: -.028em;
+  line-height: 1.12;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ============ LOGO (idêntico ao index.html) ============ */
+.paw { display: inline-flex; flex: none }
+.paw svg { width: 100%; height: 100%; display: block }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-family: 'Archivo'; line-height: 1 }
+.brand .wm { display: flex; flex-direction: column }
+.brand .wm .w1 { font-weight: 900; letter-spacing: .08em; color: var(--blue-deep) }
+.brand .wm .w2 { font-weight: 500; letter-spacing: .28em; color: var(--ink); margin-top: 1px }
+.brand .wm .w2 em { font-style: normal; color: var(--blue); font-weight: 700 }
+.brand-sm .paw { width: 34px; height: 34px }
+.brand-sm .wm .w1 { font-size: 14px }
+.brand-sm .wm .w2 { font-size: 14px; letter-spacing: .24em }
+
+/* ============ TOPBAR ============ */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 60px;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--blue);
+  transition: gap .3s var(--ease);
+}
+.back-link svg { width: 16px; height: 16px }
+.back-link:hover { gap: 12px }
+
+/* ============ HERO ============ */
+.doc-hero {
+  position: relative;
+  padding: 76px 60px 56px;
+  overflow: hidden;
+}
+.doc-hero::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -8%;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(127,184,232,.16), transparent 62%);
+  pointer-events: none;
+}
+.doc-hero-inner { position: relative; z-index: 1; max-width: 880px; margin: 0 auto }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 20px;
+}
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--blue);
+  margin-right: 14px;
+}
+.doc-title {
+  font-size: clamp(34px, 5vw, 54px);
+  letter-spacing: -.03em;
+  color: var(--blue-deep);
+}
+.doc-lead {
+  margin-top: 20px;
+  max-width: 62ch;
+  font-size: clamp(15px, 1.15vw, 17.5px);
+  color: var(--ink-2);
+  line-height: 1.7;
+}
+.meta-row {
+  margin-top: 32px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.meta-item .meta-label {
+  font-size: 10.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.meta-item .meta-value {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ============ CONTENT / SECTIONS ============ */
+.doc-content { max-width: 880px; margin: 0 auto; padding: 0 60px 100px }
+section.block { padding-top: 64px; border-top: 1px solid var(--line); margin-top: 64px }
+section.block:first-child { border-top: none; margin-top: 40px; padding-top: 0 }
+
+.section-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-family: 'Archivo';
+  font-weight: 800;
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+.block h2 {
+  font-size: clamp(23px, 2.6vw, 30px);
+  color: var(--blue-deep);
+  margin-bottom: 10px;
+}
+.block .lead {
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  max-width: 68ch;
+  margin-bottom: 28px;
+}
+
+.subhead {
+  font-family: 'Archivo';
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--blue);
+  margin: 30px 0 12px;
+}
+.body-text {
+  font-size: 14.5px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  margin-bottom: 14px;
+  max-width: 68ch;
+}
+
+/* cards de item (imagem/áudio/texto, funcionalidades) */
+.item-grid { display: grid; gap: 16px; margin-top: 8px }
+.item-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 22px;
+  background: var(--white);
+  transition: border-color .3s var(--ease), transform .3s var(--ease);
+}
+.item-card:hover { border-color: var(--blue-pale); transform: translateY(-2px) }
+.item-card h4 {
+  font-size: 15px;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.item-card p { font-size: 13.8px; color: var(--ink-2); line-height: 1.6 }
+
+/* tabelas de specs / stack */
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.spec-table th {
+  background: var(--blue-deep);
+  color: var(--white);
+  text-align: left;
+  font-size: 12px;
+  letter-spacing: .04em;
+  font-weight: 700;
+  padding: 12px 16px;
+}
+.spec-table td {
+  padding: 12px 16px;
+  font-size: 13.8px;
+  color: var(--ink-2);
+  border-top: 1px solid var(--line);
+}
+.spec-table tr:nth-child(even) td { background: var(--paper) }
+.spec-table td:first-child { color: var(--ink); font-weight: 600 }
+
+.note-text {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 12px;
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+  padding: 2px 6px;
+  border-radius: 5px;
+}
+
+.diagram-wrap {
+  margin: 18px 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--paper);
+}
+.diagram-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* box de pendência (ROI) */
+.pending-box {
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-line);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin: 18px 0 12px;
+}
+.pending-box strong { color: var(--warn) }
+.pending-box p { font-size: 13.8px; color: var(--ink-2); line-height: 1.65 }
+
+/* footer */
+.doc-foot {
+  text-align: center;
+  padding: 40px 60px 60px;
+  font-size: 12.5px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 720px) {
+  .topbar { padding: 16px 22px }
+  .doc-hero { padding: 48px 22px 36px }
+  .doc-content { padding: 0 22px 70px }
+  .meta-row { gap: 24px }
+  section.block { margin-top: 48px; padding-top: 48px }
+}
+</style>
+</head>
+<body>
+
+<!-- Logo (patinha, idêntico ao index.html) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="pawGrad" gradientUnits="userSpaceOnUse" x1="4" y1="4" x2="60" y2="60">
+      <stop offset="0%" stop-color="#1a6ebd" />
+      <stop offset="100%" stop-color="#4a9eff" />
+    </linearGradient>
+    <symbol id="pawIcon" viewBox="0 0 64 64">
+      <ellipse cx="13.5" cy="27" rx="6.2" ry="7.8" fill="url(#pawGrad)" />
+      <ellipse cx="25" cy="14.5" rx="7" ry="8.8" fill="url(#pawGrad)" />
+      <ellipse cx="39" cy="14.5" rx="7" ry="8.8" fill="url(#pawGrad)" />
+      <ellipse cx="50.5" cy="27" rx="6.2" ry="7.8" fill="url(#pawGrad)" />
+      <path d="M 17 42.5 C 17 35.5, 23.8 31, 32 31 C 40.2 31, 47 35.5, 47 42.5 C 47 49.8, 40 55, 32 55 C 24 55, 17 49.8, 17 42.5 Z" fill="url(#pawGrad)" />
+    </symbol>
+  </defs>
+</svg>
+
+<div class="topbar">
+  <div class="brand brand-sm">
+    <span class="paw"><svg viewBox="0 0 64 64"><use href="#pawIcon" /></svg></span>
+    <span class="wm"><span class="w1">CLYVO</span><span class="w2">V<em>E</em>T</span></span>
+  </div>
+  <a class="back-link" href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6" /></svg>
+    Voltar
+  </a>
+</div>
+
+<section class="doc-hero">
+  <div class="doc-hero-inner">
+    <span class="eyebrow">Documentação Técnica</span>
+    <h1 class="doc-title">A tecnologia por trás da Clyvo Vet.</h1>
+    <p class="doc-lead">
+      Inteligência artificial, IoT e infraestrutura em nuvem trabalhando juntas para
+      transformar sinais do corpo do animal em cuidado clínico em tempo real.
+    </p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Produto</div>
+        <div class="meta-value">Coleira inteligente + plataforma</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Solução técnica</div>
+        <div class="meta-value">IA multimodal · ESP32 · IoT</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Mercado</div>
+        <div class="meta-value">Clínicas e redes veterinárias</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="doc-content">
+
+  <!-- 1. IA -->
+  <section class="block">
+    <div class="section-num">01</div>
+    <h2>A Inteligência Artificial</h2>
+    <p class="lead">
+      O núcleo cognitivo da Clyvo Vet processa sinais visuais, sonoros e clínicos em tempo
+      real, cruzando cada dado com o histórico individual do paciente através de uma
+      arquitetura RAG (Retrieval-Augmented Generation) — que fundamenta cada resposta da IA
+      em dados reais do animal, não em conhecimento genérico do modelo.
+    </p>
+
+    <div class="subhead">Arquitetura da IA conversacional</div>
+    <p class="body-text">
+      O motor de IA roda como um serviço assíncrono independente do backend principal,
+      recebendo perguntas do tutor pelo app, buscando contexto relevante do histórico do
+      animal e retornando uma resposta fundamentada — por texto ou voz.
+    </p>
+
+    <table class="spec-table">
+      <tr><th>Etapa</th><th>O que acontece</th></tr>
+      <tr><td>1. Entrada</td><td>Tutor envia pergunta por texto ou áudio no app (React Native).</td></tr>
+      <tr><td>2. Transcrição (se voz)</td><td>Whisper (OpenAI) converte o áudio em texto.</td></tr>
+      <tr><td>3. Recuperação de contexto</td><td>ChromaDB busca no histórico do animal (consultas, medicações, sinais vitais) os trechos mais relevantes para a pergunta.</td></tr>
+      <tr><td>4. Geração da resposta</td><td>Claude (Anthropic API) recebe a pergunta + contexto recuperado e gera uma resposta fundamentada no caso real do animal.</td></tr>
+      <tr><td>5. Saída por voz (opcional)</td><td>ElevenLabs converte a resposta em áudio, permitindo interação por voz de ponta a ponta.</td></tr>
+    </table>
+
+    <div class="subhead">Stack técnico do backend de IA</div>
+    <table class="spec-table">
+      <tr><th>Componente</th><th>Tecnologia</th></tr>
+      <tr><td>Framework de API</td><td>FastAPI (Python 3.11+), assíncrono e de alta performance</td></tr>
+      <tr><td>Modelo de linguagem</td><td>Claude (Anthropic API)</td></tr>
+      <tr><td>Base vetorial (RAG)</td><td>ChromaDB — indexa o histórico clínico do animal para busca semântica</td></tr>
+      <tr><td>Voz</td><td>Whisper (OpenAI) para transcrição · ElevenLabs para síntese de fala</td></tr>
+      <tr><td>Validação de dados</td><td>Pydantic (schemas tipados para cada requisição/resposta)</td></tr>
+      <tr><td>Automações</td><td>APScheduler — tarefas agendadas (RPA) como monitoramento periódico e alertas</td></tr>
+    </table>
+
+    <div class="subhead">As três modalidades de entrada</div>
+    <div class="item-grid">
+      <div class="item-card">
+        <h4>Imagem — Visão computacional</h4>
+        <p>Aplicada a feridas, postura, marcha e padrões de comportamento capturados pela
+        câmera do tutor ou da clínica. Módulo previsto para evolução da arquitetura RAG atual.</p>
+      </div>
+      <div class="item-card">
+        <h4>Áudio — Processamento de voz</h4>
+        <p>Pipeline já implementado via Whisper (transcrição) e ElevenLabs (síntese),
+        permitindo conversas por voz entre tutor e IA, além de análise futura de padrões
+        sonoros do animal (latidos, respiração).</p>
+      </div>
+      <div class="item-card">
+        <h4>Texto — Linguagem natural com contexto real</h4>
+        <p>Núcleo já em produção: Claude interpreta a pergunta do tutor combinada ao
+        histórico recuperado via RAG, gerando respostas fundamentadas em dados reais, não
+        apenas em conhecimento geral do modelo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. IoT -->
+  <section class="block">
+    <div class="section-num">02</div>
+    <h2>O Dispositivo IoT — Coleira Inteligente</h2>
+    <p class="lead">
+      Um microcontrolador dual-core com conectividade tripla coleta, processa e transmite
+      sinais vitais do animal a cada 60 segundos — com consumo otimizado para até 12 dias
+      de bateria.
+    </p>
+
+    <table class="spec-table">
+      <tr><th>Especificação</th><th>Detalhe</th></tr>
+      <tr><td>Microcontrolador</td><td>ESP32 Dual-Core 240 MHz</td></tr>
+      <tr><td>Conectividade</td><td>Wi-Fi · BLE · LTE-M</td></tr>
+      <tr><td>Sensores</td><td>FC · SpO&#8322; · Temperatura · IMU</td></tr>
+      <tr><td>Autonomia</td><td>Até 12 dias contínuos</td></tr>
+      <tr><td>Proteção</td><td>IP67 · à prova d'água</td></tr>
+      <tr><td>Peso total</td><td>38 g · confortável para uso contínuo</td></tr>
+    </table>
+    <p class="note-text">
+      Status atual: fase de aquisição de componentes e provisionamento das conexões de
+      comunicação, com desenvolvimento técnico em andamento.
+    </p>
+  </section>
+
+  <!-- 3. Aplicação -->
+  <section class="block">
+    <div class="section-num">03</div>
+    <h2>A Aplicação — Tutor e Clínica</h2>
+    <p class="lead">
+      O aplicativo móvel recebe os sinais vitais em tempo real, mostra o histórico do animal
+      e alerta tutor e veterinário no mesmo instante em que algo sai do padrão.
+    </p>
+
+    <div class="subhead">Stack técnico do app</div>
+    <table class="spec-table">
+      <tr><th>Componente</th><th>Tecnologia</th></tr>
+      <tr><td>Framework</td><td>React Native 0.81 + Expo — multiplataforma (iOS, Android e Web)</td></tr>
+      <tr><td>Linguagem</td><td>TypeScript, com strict mode habilitado</td></tr>
+      <tr><td>Navegação</td><td>React Navigation (native-stack + bottom-tabs)</td></tr>
+      <tr><td>Autenticação</td><td>Firebase Authentication</td></tr>
+      <tr><td>Persistência local</td><td>AsyncStorage</td></tr>
+      <tr><td>Consumo de API</td><td>TanStack Query, já preparado para integração com a API real</td></tr>
+    </table>
+
+    <div class="subhead">Funcionalidades principais</div>
+    <div class="item-grid">
+      <div class="item-card">
+        <h4>01 · Dashboard em tempo real</h4>
+        <p>Frequência cardíaca, temperatura, SpO&#8322; e nível de atividade, atualizados continuamente.</p>
+      </div>
+      <div class="item-card">
+        <h4>02 · Histórico comparativo</h4>
+        <p>Acompanhamento contínuo com comparação ao baseline individual do animal.</p>
+      </div>
+      <div class="item-card">
+        <h4>03 · Alertas inteligentes</h4>
+        <p>Notificações enviadas simultaneamente para o tutor e para a clínica responsável.</p>
+      </div>
+      <div class="item-card">
+        <h4>04 · Exportação para prontuário</h4>
+        <p>Relatórios exportados para o prontuário veterinário em um único toque.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. C# / .NET -->
+  <section class="block">
+    <div class="section-num">04</div>
+    <h2>C# / .NET — Backend Central da Plataforma</h2>
+    <p class="lead">
+      A API que sustenta tutores, pets, consultas e medicações é construída em .NET 8, em
+      Clean Architecture, com observabilidade e cobertura de testes já validadas em ambiente
+      real de nuvem.
+    </p>
+
+    <div class="subhead">Arquitetura em camadas</div>
+    <table class="spec-table">
+      <tr><th>Camada</th><th>Responsabilidade</th></tr>
+      <tr><td>Domain</td><td>Entidades e regras de negócio puras (Tutor, Pet, Consulta, Medicação), sem dependência de framework</td></tr>
+      <tr><td>Application</td><td>Casos de uso e orquestração das regras de negócio</td></tr>
+      <tr><td>Infrastructure</td><td>Acesso a dados via EF Core, integração com Oracle e serviços externos</td></tr>
+      <tr><td>Presentation</td><td>Controllers da API REST, validação de entrada e contratos HTTP</td></tr>
+    </table>
+
+    <div class="subhead">Observabilidade e testes</div>
+    <table class="spec-table">
+      <tr><th>Recurso</th><th>Implementação</th></tr>
+      <tr><td>Health checks</td><td><code>/health/live</code> e <code>/health/db</code> — verificação de disponibilidade da API e da conexão real com o Oracle</td></tr>
+      <tr><td>Logging estruturado</td><td>Serilog, com rotação diária de arquivos de log</td></tr>
+      <tr><td>Tracing distribuído</td><td>OpenTelemetry, rastreando requisições entre as camadas da aplicação</td></tr>
+      <tr><td>Testes automatizados</td><td>46 testes (28 unitários + 18 de integração) via xUnit, Moq e WebApplicationFactory</td></tr>
+    </table>
+
+    <div class="subhead">Endpoints principais</div>
+    <table class="spec-table">
+      <tr><th>Recurso</th><th>Rota base</th></tr>
+      <tr><td>Tutores</td><td><code>/api/tutors</code> — CRUD completo</td></tr>
+      <tr><td>Pets</td><td><code>/api/pets</code> — CRUD completo, vinculado ao tutor</td></tr>
+      <tr><td>Consultas</td><td><code>/api/consultas</code></td></tr>
+      <tr><td>Medicações</td><td><code>/api/medicacoes</code></td></tr>
+    </table>
+  </section>
+
+  <!-- 5. DevOps -->
+  <section class="block">
+    <div class="section-num">05</div>
+    <h2>DevOps &amp; Infraestrutura</h2>
+    <p class="lead">
+      O backend central já roda 100% containerizado em nuvem, com pipeline de entrega
+      totalmente automatizado — do commit até a aplicação funcional, sem intervenção manual.
+    </p>
+
+    <table class="spec-table">
+      <tr><th>Camada</th><th>Tecnologia</th></tr>
+      <tr><td>Containerização</td><td>Docker — imagem da API .NET e do banco Oracle</td></tr>
+      <tr><td>Registro de imagens</td><td>Azure Container Registry (ACR)</td></tr>
+      <tr><td>Execução em nuvem</td><td>Azure Container Instances (ACI) — arquitetura de produção validada</td></tr>
+      <tr><td>CI/CD</td><td>GitHub Actions — build, publicação da imagem e deploy automatizados a cada push</td></tr>
+      <tr><td>Backend de IA</td><td>API Python (FastAPI) hospedada no Render.com, com Firebase Firestore/Auth como backend complementar</td></tr>
+    </table>
+
+    <div class="subhead">Diagrama da arquitetura</div>
+    <div class="diagram-wrap">
+      <img src="diagrama-arquitetura.jpg" alt="Diagrama da arquitetura em nuvem — CI/CD e Azure Container Instances">
+    </div>
+    <p class="note-text">
+      Fluxo completo: push na branch <code>develop</code> aciona o GitHub Actions, que builda
+      e publica a imagem no ACR, recria o container group no ACI (Oracle + API) e valida a
+      saúde da aplicação antes de liberar o acesso público.
+    </p>
+
+    <div class="subhead">Por que a demonstração roda no Render.com</div>
+    <p class="body-text">
+      A arquitetura em Azure (ACR + ACI) é a que valida a solução de produção: pipeline de
+      CI/CD completo, containers isolados e infraestrutura provisionada via código. Ela não
+      fica ativa 24 horas por dia neste momento do projeto para não consumir créditos de
+      forma contínua — os recursos são recriados sob demanda, em minutos, sempre que
+      necessário validar ou demonstrar o ambiente.
+    </p>
+    <p class="body-text">
+      Por isso, o aplicativo do tutor consome hoje a mesma API .NET publicada de forma
+      contínua no Render.com, garantindo que o front-end tenha um backend sempre disponível
+      para testes e para a apresentação. Em caso de continuidade do projeto, a arquitetura
+      Azure é a que assume como ambiente de produção definitivo.
+    </p>
+
+    <div class="subhead">Plano de escalabilidade</div>
+    <p class="body-text">
+      A arquitetura atual (ACR + ACI) foi escolhida por agilidade de entrega nesta fase do
+      projeto. Com o crescimento da base de clínicas e dispositivos, o plano de evolução prevê:
+    </p>
+    <div class="item-grid">
+      <div class="item-card">
+        <h4>Migração para AKS (Azure Kubernetes Service)</h4>
+        <p>Orquestração de containers em escala, com auto-scaling horizontal conforme a
+        demanda de clínicas conectadas simultaneamente.</p>
+      </div>
+      <div class="item-card">
+        <h4>Adoção do Azure IoT Hub</h4>
+        <p>Gerenciamento centralizado de toda a frota de coleiras em campo — conectividade,
+        telemetria em massa e atualização remota de firmware (OTA).</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="doc-foot">Clyvo Vet &middot; Documentação Técnica &middot; Challenge Técnico</div>
+
+</body>
+</html>
