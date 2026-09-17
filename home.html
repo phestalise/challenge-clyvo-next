@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clyvo Vet Challenge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter+Tight:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ============ TOKENS (mesmo padrão da apresentação executiva) ============ */
+        :root {
+            --white: #ffffff;
+            --paper: #f6f9fc;
+            --blue-deep: #1e3a5f;
+            --blue: #1a6ebd;
+            --blue-mid: #2e86de;
+            --blue-light: #4a9eff;
+            --blue-pale: #e2e8f0;
+            --blue-soft: #f0f4f8;
+            --ink: #0a1420;
+            --ink-2: #3a4a5c;
+            --muted: #7a8a9c;
+            --line: #dbe5ef;
+            --good: #1e8a63;
+            --ease: cubic-bezier(.25, .7, .3, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            height: 100%;
+            -webkit-text-size-adjust: 100%
+        }
+
+        body {
+            font-family: 'Inter Tight', system-ui, -apple-system, sans-serif;
+            background: var(--white);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+            min-height: 100dvh;
+            overflow-x: hidden;
+        }
+
+        img,
+        svg {
+            display: block;
+            max-width: 100%
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        button {
+            font: inherit;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: inherit
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Archivo', sans-serif;
+            letter-spacing: -.028em;
+            line-height: 1.08;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        /* ============ LOGO ============ */
+        .paw {
+            display: inline-flex;
+            flex: none
+        }
+
+        .paw svg {
+            width: 100%;
+            height: 100%;
+            display: block
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Archivo';
+            line-height: 1
+        }
+
+        .brand .wm {
+            display: flex;
+            flex-direction: column
+        }
+
+        .brand .wm .w1 {
+            font-weight: 900;
+            letter-spacing: .08em;
+            color: var(--blue-deep)
+        }
+
+        .brand .wm .w2 {
+            font-weight: 500;
+            letter-spacing: .28em;
+            color: var(--ink);
+            margin-top: 2px
+        }
+
+        .brand .wm .w2 em {
+            font-style: normal;
+            color: var(--blue);
+            font-weight: 700
+        }
+
+        .brand-lg .paw {
+            width: 62px;
+            height: 62px
+        }
+
+        .brand-lg .wm .w1 {
+            font-size: 26px
+        }
+
+        .brand-lg .wm .w2 {
+            font-size: 26px;
+            letter-spacing: .32em
+        }
+
+        /* ============ HERO / BACKDROP ============ */
+        .hero {
+            position: relative;
+            min-height: 100dvh;
+            display: grid;
+            place-items: center;
+            padding: 72px 60px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 900px;
+            height: 900px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(127, 184, 232, .18), transparent 62%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -15%;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(30, 95, 168, .10), transparent 65%);
+            pointer-events: none;
+        }
+
+        .home {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .home-logo {
+            margin-bottom: 44px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 22px;
+        }
+
+        .eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background: var(--blue);
+            vertical-align: middle;
+            margin-right: 14px;
+            transform: translateY(-2px);
+        }
+
+        .home-title {
+            font-family: 'Archivo';
+            font-weight: 900;
+            font-size: clamp(46px, 7.4vw, 96px);
+            line-height: .95;
+            letter-spacing: -.04em;
+            color: var(--blue-deep);
+        }
+
+        .home-title span {
+            display: block;
+            color: var(--ink);
+            font-weight: 500;
+            font-size: clamp(26px, 3.6vw, 42px);
+            letter-spacing: -.02em;
+            margin-top: 14px;
+        }
+
+        .home-rule {
+            width: 76px;
+            height: 2px;
+            background: var(--blue);
+            margin: 36px 0 26px
+        }
+
+        .home-desc {
+            max-width: 56ch;
+            font-size: clamp(16px, 1.3vw, 19px);
+            color: var(--ink-2);
+            line-height: 1.65;
+        }
+
+        /* ============ CTA CARDS ============ */
+        .cta-row {
+            margin-top: 58px;
+            display: flex;
+            gap: 24px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta {
+            position: relative;
+            flex: 1 1 320px;
+            max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            gap: 18px;
+            padding: 30px 28px;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            background: var(--white);
+            transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+            overflow: hidden;
+        }
+
+        .cta::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            pointer-events: none;
+        }
+
+        .cta:hover,
+        .cta:focus-visible {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 48px -20px rgba(30, 58, 95, .28);
+            border-color: transparent;
+        }
+
+        .cta-primary {
+            background: linear-gradient(155deg, var(--blue-deep), var(--blue) 60%, var(--blue-mid));
+            border-color: transparent;
+        }
+
+        .cta-icon {
+            display: grid;
+            place-items: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: var(--blue-soft);
+            color: var(--blue);
+            flex: none;
+        }
+
+        .cta-primary .cta-icon {
+            background: rgba(255, 255, 255, .16);
+            color: var(--white);
+        }
+
+        .cta-icon svg {
+            width: 26px;
+            height: 26px;
+        }
+
+        .cta-label {
+            font-size: 11px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--muted);
+        }
+
+        .cta-primary .cta-label {
+            color: rgba(255, 255, 255, .72);
+        }
+
+        .cta h3 {
+            font-size: 21px;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -.015em;
+        }
+
+        .cta-primary h3 {
+            color: var(--white);
+        }
+
+        .cta p {
+            font-size: 14.5px;
+            color: var(--ink-2);
+            line-height: 1.55;
+        }
+
+        .cta-primary p {
+            color: rgba(255, 255, 255, .82);
+        }
+
+        .cta-go {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--blue);
+        }
+
+        .cta-primary .cta-go {
+            color: var(--white);
+        }
+
+        .cta-go svg {
+            width: 16px;
+            height: 16px;
+            transition: transform .3s var(--ease);
+        }
+
+        .cta:hover .cta-go svg {
+            transform: translateX(4px);
+        }
+
+        .home-foot {
+            margin-top: 56px;
+            font-size: 12.5px;
+            color: var(--muted);
+            letter-spacing: .02em;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 820px) {
+            .hero {
+                padding: 56px 28px;
+            }
+
+            .cta-row {
+                margin-top: 46px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .hero {
+                padding: 48px 20px;
+                place-items: start center;
+                padding-top: 64px;
+            }
+
+            .home-logo {
+                margin-bottom: 32px;
+            }
+
+            .brand-lg .paw {
+                width: 48px;
+                height: 48px;
+            }
+
+            .brand-lg .wm .w1,
+            .brand-lg .wm .w2 {
+                font-size: 20px;
+            }
+
+            .home-rule {
+                margin: 28px 0 20px;
+            }
+
+            .cta-row {
+                margin-top: 40px;
+                gap: 16px;
+            }
+
+            .cta {
+                flex: 1 1 100%;
+                max-width: 100%;
+                padding: 24px 22px;
+            }
+
+            .home-foot {
+                margin-top: 40px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cta {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+     SPOT SVG: PATINHA CLYVO VET
+     ============================================================ -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <linearGradient id="pawGrad" gradientUnits="userSpaceOnUse" x1="4" y1="4" x2="60" y2="60">
+                <stop offset="0%" stop-color="#1a6ebd" />
+                <stop offset="100%" stop-color="#4a9eff" />
+            </linearGradient>
+
+            <symbol id="pawIcon" viewBox="0 0 64 64">
+                <ellipse cx="13.5" cy="27" rx="6.2" ry="7.8" fill="url(#pawGrad)" />
+                <ellipse cx="25" cy="14.5" rx="7" ry="8.8" fill="url(#pawGrad)" />
+                <ellipse cx="39" cy="14.5" rx="7" ry="8.8" fill="url(#pawGrad)" />
+                <ellipse cx="50.5" cy="27" rx="6.2" ry="7.8" fill="url(#pawGrad)" />
+                <path
+                    d="M 17 42.5 C 17 35.5, 23.8 31, 32 31 C 40.2 31, 47 35.5, 47 42.5 C 47 49.8, 40 55, 32 55 C 24 55, 17 49.8, 17 42.5 Z"
+                    fill="url(#pawGrad)" />
+            </symbol>
+        </defs>
+    </svg>
+
+    <div class="hero">
+        <div class="home">
+            <div class="home-logo">
+                <div class="brand brand-lg">
+                    <span class="paw">
+                        <svg viewBox="0 0 64 64">
+                            <use href="#pawIcon" />
+                        </svg>
+                    </span>
+                    <span class="wm">
+                        <span class="w1">CLYVO</span>
+                        <span class="w2">V<em>E</em>T</span>
+                    </span>
+                </div>
+            </div>
+
+            <span class="eyebrow">Clyvo Challenge</span>
+
+            <h1 class="home-title">
+                Bem-vindo
+                <span>Explore o projeto Clyvo Vet</span>
+            </h1>
+
+            <div class="home-rule"></div>
+
+            <p class="home-desc">
+                Inteligência artificial, IoT e monitoramento contínuo para transformar a saúde animal —
+                da coleira ao diagnóstico clínico. Escolha por onde começar.
+            </p>
+
+            <div class="cta-row">
+                <a class="cta cta-primary" href="apresentacao-executiva.html">
+                    <span class="cta-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="13" rx="2" />
+                            <path d="M8 21h8M12 17v4" />
+                        </svg>
+                    </span>
+                    <span class="cta-label">Apresentação</span>
+                    <h3>Acesse nossa Apresentação Executiva</h3>
+                    <p>Uma visão completa do produto, do mercado e da tecnologia por trás da Clyvo Vet.</p>
+                    <span class="cta-go">
+                        Ver apresentação
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M13 6l6 6-6 6" />
+                        </svg>
+                    </span>
+                </a>
+
+                <a class="cta" href="documentacao.html">
+                    <span class="cta-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z" />
+                            <path d="M14 2v5h5M8 12h8M8 16h8M8 8h3" />
+                        </svg>
+                    </span>
+                    <span class="cta-label">Documentação</span>
+                    <h3>Acesse a Documentação do Projeto</h3>
+                    <p>Detalhes técnicos, arquitetura e decisões de implementação da solução.</p>
+                    <span class="cta-go">
+                        Ver documentação
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M13 6l6 6-6 6" />
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+            <div class="home-foot">Clyvo Vet &middot; Challenge Técnico</div>
+        </div>
+    </div>
+
+</body>
+
+</html>
