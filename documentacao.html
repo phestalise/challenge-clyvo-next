@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clyvo Vet — Documentação Técnica</title>
+<title>Clyvo Vet · Documentação Técnica</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -370,7 +370,7 @@ code {
     <p class="lead">
       O núcleo cognitivo da Clyvo Vet processa sinais visuais, sonoros e clínicos em tempo
       real, cruzando cada dado com o histórico individual do paciente através de uma
-      arquitetura RAG (Retrieval-Augmented Generation) — que fundamenta cada resposta da IA
+      arquitetura RAG (Retrieval-Augmented Generation), que fundamenta cada resposta da IA
       em dados reais do animal, não em conhecimento genérico do modelo.
     </p>
 
@@ -378,7 +378,7 @@ code {
     <p class="body-text">
       O motor de IA roda como um serviço assíncrono independente do backend principal,
       recebendo perguntas do tutor pelo app, buscando contexto relevante do histórico do
-      animal e retornando uma resposta fundamentada — por texto ou voz.
+      animal e retornando uma resposta fundamentada, por texto ou voz.
     </p>
 
     <table class="spec-table">
@@ -395,27 +395,27 @@ code {
       <tr><th>Componente</th><th>Tecnologia</th></tr>
       <tr><td>Framework de API</td><td>FastAPI (Python 3.11+), assíncrono e de alta performance</td></tr>
       <tr><td>Modelo de linguagem</td><td>Claude (Anthropic API)</td></tr>
-      <tr><td>Base vetorial (RAG)</td><td>ChromaDB — indexa o histórico clínico do animal para busca semântica</td></tr>
+      <tr><td>Base vetorial (RAG)</td><td>ChromaDB, indexa o histórico clínico do animal para busca semântica</td></tr>
       <tr><td>Voz</td><td>Whisper (OpenAI) para transcrição · ElevenLabs para síntese de fala</td></tr>
       <tr><td>Validação de dados</td><td>Pydantic (schemas tipados para cada requisição/resposta)</td></tr>
-      <tr><td>Automações</td><td>APScheduler — tarefas agendadas (RPA) como monitoramento periódico e alertas</td></tr>
+      <tr><td>Automações</td><td>APScheduler, tarefas agendadas (RPA) como monitoramento periódico e alertas</td></tr>
     </table>
 
     <div class="subhead">As três modalidades de entrada</div>
     <div class="item-grid">
       <div class="item-card">
-        <h4>Imagem — Visão computacional</h4>
+        <h4>Imagem · Visão computacional</h4>
         <p>Aplicada a feridas, postura, marcha e padrões de comportamento capturados pela
         câmera do tutor ou da clínica. Módulo previsto para evolução da arquitetura RAG atual.</p>
       </div>
       <div class="item-card">
-        <h4>Áudio — Processamento de voz</h4>
+        <h4>Áudio · Processamento de voz</h4>
         <p>Pipeline já implementado via Whisper (transcrição) e ElevenLabs (síntese),
         permitindo conversas por voz entre tutor e IA, além de análise futura de padrões
         sonoros do animal (latidos, respiração).</p>
       </div>
       <div class="item-card">
-        <h4>Texto — Linguagem natural com contexto real</h4>
+        <h4>Texto · Linguagem natural com contexto real</h4>
         <p>Núcleo já em produção: Claude interpreta a pergunta do tutor combinada ao
         histórico recuperado via RAG, gerando respostas fundamentadas em dados reais, não
         apenas em conhecimento geral do modelo.</p>
@@ -426,10 +426,10 @@ code {
   <!-- 2. IoT -->
   <section class="block">
     <div class="section-num">02</div>
-    <h2>O Dispositivo IoT — Coleira Inteligente</h2>
+    <h2>O Dispositivo IoT · Coleira Inteligente</h2>
     <p class="lead">
       Um microcontrolador dual-core com conectividade tripla coleta, processa e transmite
-      sinais vitais do animal a cada 60 segundos — com consumo otimizado para até 12 dias
+      sinais vitais do animal a cada 60 segundos, com consumo otimizado para até 12 dias
       de bateria.
     </p>
 
@@ -451,7 +451,7 @@ code {
   <!-- 3. Aplicação -->
   <section class="block">
     <div class="section-num">03</div>
-    <h2>A Aplicação — Tutor e Clínica</h2>
+    <h2>A Aplicação · Tutor e Clínica</h2>
     <p class="lead">
       O aplicativo móvel recebe os sinais vitais em tempo real, mostra o histórico do animal
       e alerta tutor e veterinário no mesmo instante em que algo sai do padrão.
@@ -460,7 +460,7 @@ code {
     <div class="subhead">Stack técnico do app</div>
     <table class="spec-table">
       <tr><th>Componente</th><th>Tecnologia</th></tr>
-      <tr><td>Framework</td><td>React Native 0.81 + Expo — multiplataforma (iOS, Android e Web)</td></tr>
+      <tr><td>Framework</td><td>React Native 0.81 + Expo, multiplataforma (iOS, Android e Web)</td></tr>
       <tr><td>Linguagem</td><td>TypeScript, com strict mode habilitado</td></tr>
       <tr><td>Navegação</td><td>React Navigation (native-stack + bottom-tabs)</td></tr>
       <tr><td>Autenticação</td><td>Firebase Authentication</td></tr>
@@ -492,7 +492,7 @@ code {
   <!-- 4. C# / .NET -->
   <section class="block">
     <div class="section-num">04</div>
-    <h2>C# / .NET — Backend Central da Plataforma</h2>
+    <h2>C# / .NET · Backend Central da Plataforma</h2>
     <p class="lead">
       A API que sustenta tutores, pets, consultas e medicações é construída em .NET 8, em
       Clean Architecture, com observabilidade e cobertura de testes já validadas em ambiente
@@ -511,7 +511,7 @@ code {
     <div class="subhead">Observabilidade e testes</div>
     <table class="spec-table">
       <tr><th>Recurso</th><th>Implementação</th></tr>
-      <tr><td>Health checks</td><td><code>/health/live</code> e <code>/health/db</code> — verificação de disponibilidade da API e da conexão real com o Oracle</td></tr>
+      <tr><td>Health checks</td><td><code>/health/live</code> e <code>/health/db</code>, verificação de disponibilidade da API e da conexão real com o Oracle</td></tr>
       <tr><td>Logging estruturado</td><td>Serilog, com rotação diária de arquivos de log</td></tr>
       <tr><td>Tracing distribuído</td><td>OpenTelemetry, rastreando requisições entre as camadas da aplicação</td></tr>
       <tr><td>Testes automatizados</td><td>46 testes (28 unitários + 18 de integração) via xUnit, Moq e WebApplicationFactory</td></tr>
@@ -520,8 +520,8 @@ code {
     <div class="subhead">Endpoints principais</div>
     <table class="spec-table">
       <tr><th>Recurso</th><th>Rota base</th></tr>
-      <tr><td>Tutores</td><td><code>/api/tutors</code> — CRUD completo</td></tr>
-      <tr><td>Pets</td><td><code>/api/pets</code> — CRUD completo, vinculado ao tutor</td></tr>
+      <tr><td>Tutores</td><td><code>/api/tutors</code>, CRUD completo</td></tr>
+      <tr><td>Pets</td><td><code>/api/pets</code>, CRUD completo, vinculado ao tutor</td></tr>
       <tr><td>Consultas</td><td><code>/api/consultas</code></td></tr>
       <tr><td>Medicações</td><td><code>/api/medicacoes</code></td></tr>
     </table>
@@ -533,21 +533,21 @@ code {
     <h2>DevOps &amp; Infraestrutura</h2>
     <p class="lead">
       O backend central já roda 100% containerizado em nuvem, com pipeline de entrega
-      totalmente automatizado — do commit até a aplicação funcional, sem intervenção manual.
+      totalmente automatizado, do commit até a aplicação funcional, sem intervenção manual.
     </p>
 
     <table class="spec-table">
       <tr><th>Camada</th><th>Tecnologia</th></tr>
-      <tr><td>Containerização</td><td>Docker — imagem da API .NET e do banco Oracle</td></tr>
+      <tr><td>Containerização</td><td>Docker, imagem da API .NET e do banco Oracle</td></tr>
       <tr><td>Registro de imagens</td><td>Azure Container Registry (ACR)</td></tr>
-      <tr><td>Execução em nuvem</td><td>Azure Container Instances (ACI) — arquitetura de produção validada</td></tr>
-      <tr><td>CI/CD</td><td>GitHub Actions — build, publicação da imagem e deploy automatizados a cada push</td></tr>
+      <tr><td>Execução em nuvem</td><td>Azure Container Instances (ACI), arquitetura de produção validada</td></tr>
+      <tr><td>CI/CD</td><td>GitHub Actions, build, publicação da imagem e deploy automatizados a cada push</td></tr>
       <tr><td>Backend de IA</td><td>API Python (FastAPI) hospedada no Render.com, com Firebase Firestore/Auth como backend complementar</td></tr>
     </table>
 
     <div class="subhead">Diagrama da arquitetura</div>
     <div class="diagram-wrap">
-      <img src="diagrama-arquitetura.jpg" alt="Diagrama da arquitetura em nuvem — CI/CD e Azure Container Instances">
+      <img src="diagrama-arquitetura.jpg" alt="Diagrama da arquitetura em nuvem: CI/CD e Azure Container Instances">
     </div>
     <p class="note-text">
       Fluxo completo: push na branch <code>develop</code> aciona o GitHub Actions, que builda
@@ -560,7 +560,7 @@ code {
       A arquitetura em Azure (ACR + ACI) é a que valida a solução de produção: pipeline de
       CI/CD completo, containers isolados e infraestrutura provisionada via código. Ela não
       fica ativa 24 horas por dia neste momento do projeto para não consumir créditos de
-      forma contínua — os recursos são recriados sob demanda, em minutos, sempre que
+      forma contínua, os recursos são recriados sob demanda, em minutos, sempre que
       necessário validar ou demonstrar o ambiente.
     </p>
     <p class="body-text">
@@ -583,7 +583,7 @@ code {
       </div>
       <div class="item-card">
         <h4>Adoção do Azure IoT Hub</h4>
-        <p>Gerenciamento centralizado de toda a frota de coleiras em campo — conectividade,
+        <p>Gerenciamento centralizado de toda a frota de coleiras em campo: conectividade,
         telemetria em massa e atualização remota de firmware (OTA).</p>
       </div>
     </div>
