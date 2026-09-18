@@ -965,35 +965,6 @@
             outline: none;
         }
 
-        /* Hotspot clicável sobre o card "Coleira Clyvo" da print, abrindo o
-           painel web da coleira. Mesma faixa vertical do card de Localização,
-           espelhado na coluna da direita. */
-        .app-hotspot--coleira {
-            position: absolute;
-            left: 50.6%;
-            top: 77.3%;
-            width: 43.9%;
-            height: 13.2%;
-            border-radius: 16px;
-            display: block;
-            cursor: pointer;
-            transition: box-shadow .2s ease;
-        }
-
-        .app-hotspot--coleira:hover,
-        .app-hotspot--coleira:focus-visible {
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, .55);
-            outline: none;
-        }
-
-        /* Nesse card o badge fica à esquerda para não ser cortado pela
-           borda direita da tela do celular (overflow: hidden). */
-        .app-hotspot--coleira .app-hotspot-badge {
-            left: 50%;
-            right: auto;
-            transform: translateX(-50%);
-        }
-
         .app-hotspot-badge {
             position: absolute;
             top: -10px;
@@ -2507,12 +2478,6 @@
                                 <div class="app-screen-pan">
                                     <img class="app-screenshot" src="img/dash.png" alt="Dashboard móvel ClyvoVet com sinais vitais e localização">
                                     <a class="app-hotspot app-hotspot--location" href="https://corrida-pet.onrender.com/" target="_blank" rel="noopener" aria-label="Abrir rastreador em tempo real do pet">
-                                        <span class="app-hotspot-badge">
-                                            <span class="app-hotspot-dot"></span>
-                                            Click aqui!!
-                                        </span>
-                                    </a>
-                                    <a class="app-hotspot app-hotspot--coleira" href="https://clyvo-vet-web.onrender.com/" target="_blank" rel="noopener" aria-label="Abrir painel web da coleira Clyvo">
                                         <span class="app-hotspot-badge">
                                             <span class="app-hotspot-dot"></span>
                                             Click aqui!!
