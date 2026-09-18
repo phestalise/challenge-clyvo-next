@@ -916,22 +916,84 @@
            celular). Em vez de cortar o rodapé (object-fit: cover) ou deixar
            faixas vazias nas laterais (object-fit: contain + moldura
            esticada), a imagem entra na largura real do aparelho e um pan
-           vertical lento revela o topo e o rodapé ao longo do tempo. */
-        .phone-screen img.app-screenshot {
+           vertical lento revela o topo e o rodapé ao longo do tempo.
+           O pan agora fica num wrapper (.app-screen-pan) — a imagem e o
+           hotspot clicável do card "Localização" são filhos dele e assim
+           se movem sempre juntos, sem depender da altura do .phone-screen. */
+        .app-screen-pan {
             position: absolute;
             left: 0;
             top: 0;
             width: 100%;
-            height: auto;
-            display: block;
+            aspect-ratio: 802 / 2038;
             animation: appScreenPan 10s ease-in-out infinite;
             animation-delay: .8s;
+        }
+
+        .app-screen-pan img.app-screenshot {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
         }
 
         @keyframes appScreenPan {
             0%, 14% { transform: translateY(0); }
             50%, 64% { transform: translateY(var(--pan-y)); }
             100% { transform: translateY(0); }
+        }
+
+        /* Hotspot clicável sobre o card "Localização" da print, abrindo o
+           rastreador em tempo real. Posição em % calculada sobre a imagem
+           original (802x2038px). */
+        .app-hotspot--location {
+            position: absolute;
+            left: 5.5%;
+            top: 77.3%;
+            width: 44.5%;
+            height: 13.2%;
+            border-radius: 16px;
+            display: block;
+            cursor: pointer;
+            transition: box-shadow .2s ease;
+        }
+
+        .app-hotspot--location:hover,
+        .app-hotspot--location:focus-visible {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .55);
+            outline: none;
+        }
+
+        .app-hotspot-badge {
+            position: absolute;
+            top: -10px;
+            right: -6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #16a34a;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .02em;
+            padding: 4px 9px 4px 7px;
+            border-radius: 999px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .28);
+            white-space: nowrap;
+        }
+
+        .app-hotspot-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #fff;
+            animation: hotspotPulse 1.4s ease-in-out infinite;
+        }
+
+        @keyframes hotspotPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .4; transform: scale(.7); }
         }
 
         /* ============ SLIDE 5 — ROI ============ */
@@ -2413,7 +2475,15 @@
                     <div class="phone-wrap">
                         <div class="phone">
                             <div class="phone-screen">
-                                <img class="app-screenshot" src="img/dash.png" alt="Dashboard móvel ClyvoVet com sinais vitais e localização">
+                                <div class="app-screen-pan">
+                                    <img class="app-screenshot" src="img/dash.png" alt="Dashboard móvel ClyvoVet com sinais vitais e localização">
+                                    <a class="app-hotspot app-hotspot--location" href="https://corrida-pet.onrender.com/" target="_blank" rel="noopener" aria-label="Abrir rastreador em tempo real do pet">
+                                        <span class="app-hotspot-badge">
+                                            <span class="app-hotspot-dot"></span>
+                                            Ao vivo
+                                        </span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
