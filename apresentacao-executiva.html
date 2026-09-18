@@ -1327,6 +1327,44 @@
             pointer-events: none;
         }
 
+        .back-home {
+            position: fixed;
+            top: 30px;
+            right: 44px;
+            left: auto;
+            z-index: 101;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue);
+            opacity: 0;
+            transform: translateY(-6px);
+            pointer-events: none;
+            transition: opacity .4s ease, transform .4s ease, color .25s;
+        }
+
+        body.is-cover .back-home {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .back-home:hover {
+            color: var(--blue-deep);
+        }
+
+        .back-home svg {
+            width: 26px;
+            height: 26px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         .hint {
             position: fixed;
             bottom: 40px;
@@ -2130,6 +2168,13 @@
             </span>
         </div>
     </div>
+
+    <!-- ============ BACK TO INDEX ============ -->
+    <a class="back-home" href="index.html" aria-label="Voltar para o índice">
+        <svg viewBox="0 0 24 24">
+            <path d="M15 6l-6 6 6 6" />
+        </svg>
+    </a>
 
     <!-- ============ DECK ============ -->
     <div class="deck" id="deck">
